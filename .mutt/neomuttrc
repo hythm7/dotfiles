@@ -1,0 +1,285 @@
+# Putting this here asks for PW once only, not every folder switch
+#source "gpg2 -dq ~/.mutt/passwordfile.gpg |"
+
+
+# This puts cursor just above signature in vim... the right place, but not common practice. Use [ to jump to top of message.
+set editor="vim +/^$ ++1 -c 'set tw=76 expandtab nosmartindent spell'"
+#set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+
+# Attribution for outlook reply format
+set attribution="\n\n-----Original Message-----\nFrom: %f\nSent: %d\n%t\nSubject: %s\n\n"
+set indent_string = ""
+# Split screen to view messages - can be slow with direct imap connection on larger mails
+#set pager_index_lines=20
+
+# This line gets rid of iso 8859 issues with attachments
+set rfc2047_parameters
+
+# Sidebar
+set sidebar_format = "%> %B"
+set sidebar_on_right = yes
+set sidebar_width=14
+set sidebar_visible=yes
+set sidebar_short_path = yes
+#set sidebar_folder_indent = yes
+#set sidebar_indent_string = ' '
+set sidebar_new_mail_only = yes
+set sidebar_divider_char = ' '
+#set unsidebar_whitelist  = "Inbox"
+# Sorts folders in sidebar alphabetically
+#set sidebar_sort=yes
+
+bind index '[' sidebar-prev
+bind index ']' sidebar-next
+bind index '#' sidebar-open
+bind pager '[' sidebar-prev
+bind pager ']' sidebar-next
+bind pager '#' sidebar-open
+
+# Remap bounce-message function to “B” and toggle sb with b
+bind index B bounce-message
+macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+
+# See all mail headers in editor, cache headers and bodies
+#set edit_headers=yes
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+
+# Prettify
+#color hdrdefault white black  # headers white on black
+#color header brightgreen black ^From:  # sender's name in green
+#color quoted cyan black  # quoted text in blue
+#color signature red black   # signature in red
+
+# Don't wait for sendmail to finish (this runs sendmail in the background)
+#set sendmail_wait=-1
+
+# A macro to store attachments in specific folder
+macro attach , "<save-entry><bol>~/.mail/attachments/<eol>" "Save to downloads folder"
+
+#Alias file for addresses
+
+###########################
+#                       PGP
+###########################
+
+# Removed "--passphrase-fd 0" after "--output -" from a bunch of settings: decode, decrypt, sign, clearsign so as to use gpg-agent
+#Also changed from pgpewrapng to /mutt/dir/pgpewrap to make it work for this setup
+
+#source ~/.mutt/gpg.rc
+#set pgp_decode_command="gpg %?p? --no-verbose --batch --output - %f"
+#set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+#set pgp_decrypt_command="gpg --no-verbose --batch --output - %f"
+#set pgp_sign_command="gpg --no-verbose --batch --output - --armor --detach-sign --textmode %?a?-u %a? %f"
+#set pgp_clearsign_command="gpg --no-verbose --batch --output - --armor --textmode --clearsign %?a?-u %a? %f"
+#set pgp_encrypt_only_command="~/mutt-1.5.24/pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0x085F086F -- -r %r -- %f"
+#set pgp_encrypt_sign_command="~/mutt-1.5.24/pgpewrap gpg --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x085F086F -- -r %r -- %f"
+#set pgp_import_command="gpg --no-verbose --import -v %f"
+#set pgp_export_command="gpg --no-verbose --export --armor %r"
+#set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
+#set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r"
+#set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r"
+#set pgp_sign_as=0x016G0FFF [replace this]
+#set crypt_replyencrypt=yes
+#set pgp_timeout=3600
+#set pgp_auto_decode=yes
+#set pgp_use_gpg_agent = yes
+
+
+# default mailboxes
+## this is an exchange server, so this is where Outlook puts its stuff
+### Receive options.
+#
+#
+#
+#
+#
+set imap_user="<user>"
+set imap_pass=<pass>
+
+set folder           = ~/.mail               # mailbox location
+set alias_file       = ~/.mutt/alias         # where to store aliases
+source $alias_file
+set header_cache     = ~/.mutt/cache/headers # where to store headers
+set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
+set certificate_file = ~/.mutt/certificates  # where to store certs
+set mailcap_path     = ~/.mutt/mailcap       # entries for filetypes
+set tmpdir           = ~/.mutt/tmp          # where to keep temp files
+set sig_on_top       = yes
+set signature        = ~/.mutt/sign           # my signature file
+# Account Settings ----------------------------------
+set mbox_type    = Maildir
+set spoolfile    = "+work/Inbox" #Default inbox.
+#set mbox         = "+work/Archive"
+set postponed    = "+work/Drafts"
+set record = "+work/Sent"
+set recall      = yes
+# Editor Settings -------------------------------------
+set editor       = "vim -c \"set spell spelllang=en\""
+# How to use spell checker
+# ]s — move to the next mispelled word
+# [s — move to the previous mispelled word
+# zg — add a word to the dictionary
+# zug — undo the addition of a word to the dictionary
+# z= — view spelling suggestions for a mispelled word
+set trash            = "+work/Deleted\ Items"
+
+set index_format="%3C %[!%d.%m %H:%M] %Z %-24.24F %s"
+set beep_new     = yes
+set copy         = yes
+set query_command   ="lbdbq '%s' 2> /dev/null" # how to query the exchange ldap database bind editor "\t"
+# Mailboxes to show in the sidebar ------------------
+mailboxes +work/Inbox \
+          +work/Sent \
+          +work/Trash \
+          +work/Drafts \
+					+work/Seamless
+
+# Editor Settings -------------------------------------
+#set editor       = "vim -c \"set spell spelllang=en\""
+# How to use spell checker
+# ]s — move to the next mispelled word
+# [s — move to the previous mispelled word
+# zg — add a word to the dictionary
+# zug — undo the addition of a word to the dictionary
+# z= — view spelling suggestions for a mispelled word
+set beep_new     = yes
+
+## save copies of sent mail to $record
+folder-hook   Sent 'set index_format="%2C | %Z [%d] %-30.30t (%-4.4c) %s"'
+#
+# And poll the current mailbox more often (not needed with IDLE in post 1.5.11)
+set timeout=10
+# Display download progress every 5K
+set net_inc=5
+
+## Send options.
+set smtp_user=<user>
+set smtp_pass=<pass>
+set smtp_url=smtp://$smtp_user:$smtp_pass@<hostname>:587
+set realname='<Real Name>'
+set from=<email>
+
+## Hook -- IMPORTANT!
+#
+bind index _ collapse-all
+unset collapse_unread
+set sort='reverse-threads'
+set sort_aux='last-date-received'
+
+#set implicit_autoview
+auto_view text/html text/enriched text/x-vcard text/calendar application/x-gunzip application/postscript application/x-tar-gz
+set beep_new
+
+
+## save copies of sent mail to $record
+#unset help
+# # color scheme
+source ~/.mutt/colors
+#source ~/.mutt/solarized/mutt-colors-solarized-dark-256.muttrc
+#
+#  # things I can't live without
+
+#   # vim-ish keybindings for going to the bottom of things
+#bind generic "G" bottom-page
+
+macro index ",c" "<pipe-message>~/.mutt/parse_remind.pl<enter>"
+macro index,pager ,r ":unset wait_key; set pipe_decode\n|~/.mutt/mutt_add_reminder\n:set wait_key; unset pipe_decode\n" "record a reminder"
+#
+#
+# Don't use "old" on emails.  They're either read or new.
+set mark_old=no
+# include and quote the message to which I'm replying in my reply.
+set include=yes
+# When replying to a message, accept the default recipients and subject line.
+set fast_reply=yes
+#unset reply_self
+# Don't ask me if I want to delete messages; just do it.
+#set delete=yes
+# Don't wrap lines at word boundaries.
+set smart_wrap=yes
+# And don't use those plus signs on wrapping.
+set markers=no
+####
+## Customized regular expressions.
+#
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set reply_regexp="^((re|aw|antw|antwort|wg|betr|betreff|sv|ang|re'|re'p|re'f|odp|f|for|forward|fwd|fw)([[(^]?[0-9]+[])]?)?(\\. ?)?:[ \t]*)+"
+# Dispaly filter
+set display_filter="/bin/sed -f ~/.mutt/display-filter.sed"
+#
+set status_format='-%r-NeoMutt: %f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]----%>-(%P)---'
+# Signature
+set signature="~/.mutt/signature"
+set sig_on_top=yes
+set sig_dashes
+
+
+#set to_chars = " ↯TCFL"
+set to_chars = " ↓↓↘↑ "
+#set flag_chars = "*!DdrONon- "
+set flag_chars = "√!⊎d↕ONon- "
+source ~/.mutt/subscriptions
+
+
+# Formating
+#set compose_format="-- %v-- Compose [Approximate Message Size: %l Attachments: %a]%>-"
+#set attach_format="%u%D%I %t%4n %T%.40d%> [%.7m/%.10M, %.6e%?C?, %C?, %s] "
+#set alias_format="%4n %2f %t %-12a %r"
+#set status_format="-%r-%v--[%?M?%M/?%m msgs%?n?, %n new?%?d?, %d del?%?F?, %F flag?%?t?, %t tag?%?p?, %p postp?%?b?, %b inc?%?l?, %l?]--(%f)--%s-%>-%P-"
+#set folder_format="%3C %t%N %F %-8.8u %-8.8g %8s %d %f"
+#set message_format="%-.16n: %s"
+#set pager_format="~~~~~~~~~ On %{%a, %d %b %Y} at [%[%H:%M]]: %s %|~"
+#set attribution='On %{%a, %d %b %Y}, %n wrote:\n'
+#set forward_format = "[%s]"
+#
+#
+# Index Key Bindings ---------------------------------
+ bind index g  noop
+ bind index gg       first-entry
+ bind index G        last-entry
+ bind index R        group-reply
+ bind index <space>  collapse-thread
+ bind index p        sort-mailbox
+ bind index o        display-message
+ bind index \Cd      next-page
+ bind index \Cu      previous-page
+
+ # Ctrl-R to mark all as read
+ macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+
+ # Saner copy/move dialogs
+ macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+ # reset any limiting
+ macro index a "<limit>all\n" "show all messages (undo limit)"
+
+ bind index N  toggle-new
+
+# Pager Key Bindings ---------------------------------
+ bind pager k    previous-line
+ bind pager j    next-line
+ bind pager \Cd  next-page
+ bind pager \Cu  previous-page
+ bind pager g   noop
+ bind pager gg   top
+ bind pager G    bottom
+
+ bind pager R  group-reply
+
+ # View attachments properly.
+ bind attach <return> view-mailcap
+
+ # enable extraction of URLs in pager and attachments menu
+ macro pager,attach U "|urlview<enter>" "call urlview to open links"
+
+ # convert html attachments to text, prepend > characters and copy into system clipboard
+ macro attach \Cp "<pipe-entry>~/.mutt/quote-html-message.sh<enter>" "convert msg to text, quote it and copy to clipboard"
+ macro pager \Cp "<view-attachments><pipe-entry>~/.mutt/quote-html-message.sh<enter><q>" "convert msg to text, quote it and copy to clipboard"
+
+ # Saner copy/move dialogs
+ macro pager C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+ macro pager M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+

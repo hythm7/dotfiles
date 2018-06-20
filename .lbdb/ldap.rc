@@ -1,0 +1,33 @@
+$ldap_server = 'ldap://localhost:1389';
+# ldap base search
+$search_base = 'ou=people';
+# list of the fields that will be used for the query
+$ldap_search_fields = 'givenname sn cn gn mail';
+# list of the fields that will be used for composing the answer
+$ldap_expected_answers = 'givenname sn gn cn mail';
+# format of the email result based on the expected answers of the ldap query
+$ldap_result_email = '${mail}';
+# format of the realname result based on the expected answers of the ldap query
+$ldap_result_realname = '${cn}';
+# format of the comment result based on the expected answers of the ldap query
+$ldap_result_comment = '';
+# Use wildchars on searching
+$ignorant = 1;
+# Do an anonymous bind to the LDAP server:
+$ldap_bind_dn = '<user>';
+$ldap_bind_password = '<pass>';
+
+%ldap_server_db = (
+  '<hostname>'       => [
+  	$ldap_server,
+	$search_base,
+	$ldap_search_fields,
+	$ldap_expected_answers,
+	$ldap_result_email,
+	$ldap_result_realname,
+	$ldap_result_comment,
+	$ignorant,
+	$ldap_bind_dn,
+	$ldap_bind_password
+	]
+);

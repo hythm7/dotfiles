@@ -1,0 +1,13 @@
+text/html; elinks -dump -dump-charset iso-8859-15 -default-mime-type text/html -no-references -no-numbering %s; needsterminal; copiousoutput;
+text/plain; vi %s; 
+image/*;											feh %s
+#image/*;											sxiv -b %s
+image/*;        anytopnm %s | pnmscale -xsize 80 -ysize 50 | ppmtopgm | \
+                pgmtopbm | pbmtoascii ; copiousoutput
+
+text/calendar; ~/bin/icalview.py; copiousoutput
+text/x-vcard; ~/bin/mutt-vcard-filter.pl; copiousoutput
+application/pdf;               mupdf %s; test=RunningX;
+application/ms-tnef;           tnef -t %s && read ans;
+application/msword;            openoffice.org-3.2.1 %s; test=RunningX;
+application/msword;            antiword %s | more;

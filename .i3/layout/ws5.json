@@ -1,0 +1,37 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "none",
+    "floating": "auto_off",
+    "layout": "splith",
+    "percent": null,
+    "rect": {
+       "height": 1138,
+       "width": 1604,
+       "x": 2095,
+       "y": 15
+    },
+    "type": "floating_con",
+    "nodes": [
+        {
+            "border": "none",
+            "current_border_width": 0,
+            "floating": "user_on",
+            "geometry": {
+               "height": 1101,
+               "width": 1587,
+               "x": 2136,
+               "y": 14
+            },
+            "name": "New Tab - Chromium",
+            "percent": 1,
+            "swallows": [
+               {
+               "class": "^Chromium$",
+               "instance": "^chromium$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

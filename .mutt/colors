@@ -1,0 +1,143 @@
+# General
+color normal		color253	default
+color bold          color255        default
+color underline     color233        default
+color indicator    	brightcolor101     	default
+color status       	color101     	default
+color tree         	color101      	default 
+color signature    	color31      	default 
+color message      	color31      	default 
+color attachment	color117      	default 
+color error        	cyan      	default 
+color tilde        	color130     	default 
+color search       color100     default 
+color markers      color138     default 
+
+
+######################
+# index ----------------------------------------------------------------
+
+color index_number color101 default
+
+color index_date color102 default
+
+#color index_flags cyan default "~A"
+color index_flags cyan default '~N'
+color index_flags color240 default '~D'
+color index_flags color31 default '~p'
+color index_flags color31 default '~P'
+color index_flags brightred default '~F'
+color index_flags yellow default '~T'
+
+#color index_tags color100 default
+
+color index_author color103 default '~A'
+#color index_author brightcolor103 default '~(~N)'
+color index_author color240 default '~D'
+color index_subject color137 default '~A'
+color index_subject brightcolor137 default '~N'
+#color index_subject brightcolor137 default '~(~N)'
+color index_subject color240 default '~D'
+
+
+# message headers ------------------------------------------------------
+
+
+color hdrdefault	color30		default 
+color header			color102  default    '^date:'
+color header			color108  default    '^(to|cc|bcc):'
+color header			color103 	default    '^from:'
+color header			color137	default    '^subject:'
+color header    	color27   default    '^user-agent:'
+color header			color129  default    '^reply-to:'
+
+# body -----------------------------------------------------------------
+
+color body			color103 	default    '^( +(from):.+)'
+color body			color102  default    '^( +(date|sent):.+)'
+color body			color108  default    '^( +(to|cc|bcc):.+)'
+color body			color137	default    '^( +(subject):.*)'
+
+color quoted        color107     default             # quoted text
+color quoted1       color66      default
+color quoted2       color32      default
+color quoted3       color30      default
+color quoted4       color99      default
+color quoted5       color36      default
+color quoted6       color114     default
+color quoted7       color109     default
+color quoted8       color41      default
+
+
+## pgp
+
+color body          color160        default        "(BAD signature)"
+color body          color39         default        "(Good signature)"
+color body          color235        default        "^gpg: Good signature .*"
+color body          color241        default        "^gpg: "
+color body          color241        default        "^gpg: BAD signature from.*"
+
+
+# simplified regex for URL & email
+color body          cyan  default  "((ftp|http|https)://|news:)[^ >)\"\t]+"
+color body          cyan  default  "[-a-z_0-9.+]+@[-a-z_0-9.]+"
+color body          red   default  "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+color body          green default  "(^| )_[-a-z0-9_]+_[,.?]?[\n]"
+color body          red   default  "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+color body          green default  "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
+
+# _underline_
+color body          cyan            default         "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+
+# /italic/  (Sometimes gets directory names)
+color body         cyan            default         "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+
+# Color if the attachment is autoviewed
+color   attach_headers     brightgreen     default        "Autoview"
+
+# Color only the brackets around the headers
+color   attach_headers     brightyellow    default        "^\\[--"
+color   attach_headers     brightyellow    default        "--]$"
+
+# Color the mime type and the size
+color   attach_headers     green           default        "Type: [a-z]+/[a-z0-9\-]+"
+color   attach_headers     green           default        "Size: [0-9\.]+[KM]"
+
+# Color GPGME signature checks
+color   attach_headers     brightgreen     default        "Good signature from.*"
+color   attach_headers     brightred       default        "Bad signature from.*"
+color   attach_headers     brightred       default        "BAD signature from.*"
+color   attach_headers     brightred       default        "Note: This key has expired!"
+color   attach_headers     brightred   default        "Problem signature from.*"
+color   attach_headers     brightmagenta   default        "WARNING: This key is not certified with a trusted signature!"
+color   attach_headers     brightmagenta   default        "         There is no indication that the signature belongs to the owner."
+color   attach_headers     brightmagenta   default        "can't handle these multiple signatures"
+color   attach_headers     brightmagenta   default        "signature verification suppressed"
+color   attach_headers     brightmagenta   default        "invalid node with packet of type"
+
+# Currency
+color body yellow default "[1-9][0-9.,]*(--?|[0-9][0-9])? *(dm|euro?|mark|\$\$\$)"
+color body yellow default "19[89][0-9]"
+color body yellow default "200[012]"
+color body yellow default "\\(c\\)"
+
+
+color sidebar_indicator color31 default
+color sidebar_highlight brightcolor31 default
+color sidebar_divider color101 default
+color sidebar_flagged brightred default
+color sidebar_new color31 default
+color sidebar_ordinary color103 default
+#color sidebar_spoolfile red default
+
+
+color progress color31 default
+color prompt color31 default
+
+# vi: ft=muttrc ts=4 sw=4 sts=4 et
+
+
+
+
+
+

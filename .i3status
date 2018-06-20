@@ -1,0 +1,55 @@
+general {
+        output_format = "i3bar"
+        colors = true
+        color_good = "#977977"
+        color_degraded = "#e5871f"
+        color_bad = "#777777"
+        interval = 14
+}
+
+#order += "disk /"
+#order += "run_watch DHCP"
+#order += "run_watch vpn"
+#order += "wireless wlan0"
+#order += "ethernet eth0"
+#order += "battery 0"
+#order += "load"
+order += "time"
+
+wireless wlan0 {
+        format_up = "n %quality"
+        format_down = "n: down"
+}
+
+ethernet eth0 {
+        # if you use %speed, i3status requires root privileges
+        format_up = "n: up"
+        format_down = "i: down"
+}
+
+battery 0 {
+        format = "%status %percentage"
+        low_threshold = "7"
+        threshold_type = "%percentage"
+}
+
+run_watch DHCP {
+        pidfile = "/var/run/dhcpcd-*.pid"
+}
+
+run_watch vpn {
+        pidfile = "/var/run/vpnc/pid"
+}
+
+time {
+        format = "%H:%M"
+}
+
+load {
+        format = "%1min"
+#       max_threshold =1
+}
+
+disk "/" {
+        format = "%free (or: %percentage_used used, %percentage_used_of_avail used of avail, %percentage_free free, %percentage_avail avail)"
+}

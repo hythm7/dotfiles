@@ -1,0 +1,2 @@
+LDAP_NICKS="<hostname>"
+METHODS="m_ldap"
